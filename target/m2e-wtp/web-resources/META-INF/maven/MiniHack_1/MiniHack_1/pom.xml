@@ -26,22 +26,37 @@
   </build>
   <dependencies>
 	  <dependency>
+	      <groupId>se.walkercrou</groupId>
+	      <artifactId>google-places-api-java</artifactId>
+	      <version>2.1.7</version>
+	  </dependency>
+  
+  	<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.3.2</version>
+</dependency>
+	<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpmime</artifactId>
+    <version>4.0.1</version>
+</dependency>
+	  <dependency>
 		  <groupId>com.google.code.gson</groupId>
 		  <artifactId>gson</artifactId>
 		  <version>2.8.2</version>
 		</dependency>
 		<dependency>
-
-        <groupId>org.glassfish.jersey.bundles</groupId>
-
-        <artifactId>jaxrs-ri</artifactId>
-
-        <version>2.23.2</version>
-
-        <type>zip</type>
-
-        <classifier>src</classifier>
-
-    </dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpcore</artifactId>
+		    <version>4.4.9</version>
+		</dependency>
+		<dependency>
+	        <groupId>org.glassfish.jersey.bundles</groupId>
+	        <artifactId>jaxrs-ri</artifactId>
+	        <version>2.23.2</version>
+	        <type>zip</type>
+	        <classifier>src</classifier>
+	    </dependency>
 	</dependencies>
 </project>
