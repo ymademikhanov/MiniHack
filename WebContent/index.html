@@ -3,8 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>MiniHack24.02.18</title>
+<style>
+    #map {
+     height: 400px;
+     width: 100%;
+    }
+ </style>
 </head>
 <body>
-
-</body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+    
+    var options = {
+    		  enableHighAccuracy: true,
+    		  timeout: 5000,
+    		  maximumAge: 0
+    		};
+    
+    function error(err) {
+    	  console.warn(`ERROR(${err.code}): ${err.message}`);
+    	};
+    	
+    navigator.geolocation.getCurrentPosition(initMap, error, options);
+    
+      function initMap(pos) {
+    	    var crd = pos.coords;
+        var astana = {lat: crd.latitude, lng: crd.longitude};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: astana
+        });
+        var marker = new google.maps.Marker({
+          position: astana,
+          map: map
+        });
+      }
+    </script>
+    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVoI-brTjE9Q0qzkyb0di0f-pty2dtVKg&callback=initMap"> </script>
+  </body>
+  
 </html>
