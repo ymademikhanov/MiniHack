@@ -25,22 +25,14 @@
     </plugins>
   </build>
   <dependencies>
-	  <dependency>
-	      <groupId>se.walkercrou</groupId>
-	      <artifactId>google-places-api-java</artifactId>
-	      <version>2.1.7</version>
-	  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20180130</version>
+</dependency>
   
-  	<dependency>
-    <groupId>org.apache.httpcomponents</groupId>
-    <artifactId>httpclient</artifactId>
-    <version>4.3.2</version>
-</dependency>
-	<dependency>
-    <groupId>org.apache.httpcomponents</groupId>
-    <artifactId>httpmime</artifactId>
-    <version>4.0.1</version>
-</dependency>
+  
 	  <dependency>
 		  <groupId>com.google.code.gson</groupId>
 		  <artifactId>gson</artifactId>
