@@ -41,8 +41,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group" id="adv-search">
-					<input id="locationSearchField" type="text" class="form-control"
-						data-provide="typeahead" placeholder="Search for location" />
+					<input id="locationSearchField" type="text" class="form-control" placeholder="Search for location" />
+					
 					<div class="input-group-btn">
 						<div class="btn-group" role="group">
 							<div class="dropdown dropdown-lg">
@@ -95,74 +95,38 @@
 						</div>
 					</div>
 				</div>
+				<ul id = "searchlist" style="display: none; background:white; position:absolute; left: 500px; top: 100px;">
+					<li> item 1 </li>
+					<li> item 2 </li>
+					<li> item 3 </li>
+				</ul>
 			</div>
 		</div>
 	</div>
 	</div>
 
-	<div id="map"></div>
-
-	<script>
+	<button onclick="showList()">click me</button>
+	<div id="map" style="height:500px; width: 100%; background: red;"></div>
 	
-		$(document).ready(function(e) {
-			$('.search-panel .dropdown-menu').find('a').click(function(e) {
-				e.preventDefault();
-				var param = $(this).attr("href").replace("#", "");
-				var concept = $(this).text();
-				$(this).text(concept);
-				$(this).val(param);
-			});
-		});
-
-		var options = {
-			enableHighAccuracy : true,
-			timeout : 5000,
-			maximumAge : 0
-		};
-
-		function error(err) {
-			console.warn(`ERROR(${err.code}): ${err.message}`);
-		};
-
-		navigator.geolocation.getCurrentPosition(initMap, error, options);
-
-		function initMap(pos) {
-			var crd = pos.coords;
-			var currentPosition = {
-				lat : crd.latitude,
-				lng : crd.longitude
-			};
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom : 15,
-				center : currentPosition
-			});
-
-			var marker = new google.maps.Marker({
-				position : currentPosition,
-				map : map
-			});
-
-			var nearLocation = {
-				lat : crd.latitude + 0.01,
-				lng : crd.longitude + 0.01
-			};
-			var marker = new google.maps.Marker({
-				position : nearLocation,
-				map : map
-			});
-		}
-	</script>
-
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVoI-brTjE9Q0qzkyb0di0f-pty2dtVKg&callback=initMap">
-		
-	</script>
-
 </body>
 
 </html>
 
 <script>
+	function showList() {
+		$("#searchlist").toggle();
+	}
+	
+	$(document).ready(function(e) {
+		$('.search-panel .dropdown-menu').find('a').click(function(e) {
+			e.preventDefault();
+			var param = $(this).attr("href").replace("#", "");
+			var concept = $(this).text();
+			$(this).text(concept);
+			$(this).val(param);
+		});
+	});
+
 	$(document).ready(function() {
 		$('#map').css('height', $(window).height());
 	});
@@ -173,25 +137,14 @@
 		
 	$("#locationSearchField").keypress(function() {
 		console.log("keyboard is pressed");
-			$.ajax({
-			    url: "/MiniHack_1/services/findPlace?input=" + $(this).val(),
-			    type: 'GET',
-			    success: function(response) {
-			    		var options = {
-			    				data:$.parseJSON(response),
-			    				list: {	
-			    				    match: {
-			    				      enabled: true
-			    				    }
-			    				  },
-
-			    				  theme: "square"
-					};
-					
-			    		console.log(options);
-			    		$("#locationSearchField").easyAutocomplete(options);
-				}
-			});
+		$.ajax({
+		    url: "/MiniHack_1/services/findPlace?input=" + $(this).val(),
+		    type: 'GET',
+		    
+		    success: function(response) {
+		    		console.log($.parseJSON(response));
+			}
+		});
 	});
 </script>
 
