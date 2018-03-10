@@ -1,156 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8">
-<title>MiniHack v1</title>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_TEVCna6Qfoe54Tv7qELwCjZ70GpYHfU"></script>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-
-
-<link href="style.css" rel="stylesheet">
-
-<script src="bootstrap_typeahead.js"></script>
-
-<!-- JS file -->
-<script src="resources/EasyAutocomplete-1.3.5/jquery.easy-autocomplete.min.js"></script> 
-
-<!-- CSS file -->
-<link rel="stylesheet" href="resources/EasyAutocomplete-1.3.5/easy-autocomplete.min.css"> 
-
-<!-- Additional CSS Themes file - not required-->
-<link rel="stylesheet" href="resources/EasyAutocomplete-1.3.5/easy-autocomplete.themes.min.css"> 
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
+    <div class="w3-row">
+        <div class="w3-col m4 l3">
+            <div class="inputDiv">
+                <form action="/action_page.php">
+                    <div class = "search_parameter">
+                    <label for="fname"> <b> Searching area </b></label>
+                    <input type="text" id="fname" name="firstname" placeholder="Enter a searching area">
+                    </div>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="input-group" id="adv-search">
-					<input id="locationSearchField" type="text" class="form-control" placeholder="Search for location" />
-					
-					<div class="input-group-btn">
-						<div class="btn-group" role="group">
-							<div class="dropdown dropdown-lg">
-								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-expanded="false">
-									Filters <span class="caret"></span>
-								</button>
-								<div class="dropdown-menu dropdown-menu-right" role="menu">
-									<form class="form-horizontal" role="form">
-										<div class="form-group">
-											<label for="filter">Max price</label> <select
-												class="form-control">
-												<option value="0" selected>Any</option>
-												<option value="1">400 pcm</option>
-												<option value="2">500 pcm</option>
-												<option value="3">600 pcm</option>
-												<option value="4">700 pcm</option>
-												<option value="5">800 pcm</option>
-												<option value="6">900 pcm</option>
-												<option value="7">1000 pcm</option>
+                    <div class = "search_parameter">
+                    <label for="country"> <b> Travel time </b></label>
+                    <div class="w3-row">
+                        <div class="w3-col m12 l12">
+                                <select id="country" name="Min price">
+                                    <option value="australia">No max</option>
+                                    <option value="canada">10 min</option>
+                                    <option value="usa">20 min</option>
+                                    <option value="usa">3   0 min</option>
+                                </select>
+                        </div>
+                    </div>
+                    </div>
 
-											</select>
-										</div>
-										<div class="form-group">
-											<label for="filter">Max travel time</label> <select
-												class="form-control">
-												<option value="0" selected>Any</option>
-												<option value="1">10 mins</option>
-												<option value="2">20 mins</option>
-												<option value="3">30 mins</option>
-												<option value="4">45 mins</option>
-												<option value="5">An hour</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<label for="contain">Tags</label> <input class="form-control"
-												type="text" />
-										</div>
-										<button type="submit" class="btn btn-primary">
-											<span class="glyphicon glyphicon-search" aria-hidden="true">
-											</span> Search
-										</button>
-									</form>
-								</div>
-							</div>
-							<button type="button" class="btn btn-primary">
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-								Search
-							</button>
-						</div>
-					</div>
-				</div>
-				<ul id = "searchlist" style="display: none; background:white; position:absolute; left: 500px; top: 100px;">
-					<li> item 1 </li>
-					<li> item 2 </li>
-					<li> item 3 </li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	</div>
+                    <div class = "search_parameter">
+                    <label for="country"> <b> Price range (pounds) </b></label>
+                    <div class="w3-row">
+                        <div class="w3-col m6 l6">
+                                <select id="country" name="Min price">
+                                    <option value="australia">No min</option>
+                                    <option value="canada">400 PCM</option>
+                                    <option value="usa">500 PCM</option>
+                                </select>
+                        </div>
+                        <div class="w3-col m6 l6">
+                                <select class = "select-style" id="country" name="Min price">
+                                    <option value="australia">No max</option>
+                                    <option value="canada">400 PCM</option>
+                                    <option value="usa">500 PCM</option>
+                                </select>
+                        </div>
+                    </div>
+                    </div>
 
-	<button onclick="showList()">click me</button>
-	<div id="map" style="height:500px; width: 100%; background: red;"></div>
-	
+                    <div class = "search_parameter">
+                    <label for="country"> <b> No. of bedrooms </b></label>
+                    <div class="w3-row">
+                        <div class="w3-col m6 l6">
+                                <select id="country" name="Min price">
+                                    <option value="australia">No min</option>
+                                    <option value="canada">400 PCM</option>
+                                    <option value="usa">500 PCM</option>
+                                </select>
+                        </div>
+                        <div class="w3-col m6 l6">
+                                <select class = "select-style" id="country" name="Min price">
+                                    <option value="australia">No max</option>
+                                    <option value="canada">400 PCM</option>
+                                    <option value="usa">500 PCM</option>
+                                </select>
+                        </div>
+                    </div>
+                    </div>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+        </div>
+        <div class="w3-col m8 l9">
+            <div id="googleMap" style="width:100%;height:90vh;"></div>
+        </div>
+    </div>
+
 </body>
 
-</html>
-
 <script>
-	function showList() {
-		$("#searchlist").toggle();
-	}
-	
-	$(document).ready(function(e) {
-		$('.search-panel .dropdown-menu').find('a').click(function(e) {
-			e.preventDefault();
-			var param = $(this).attr("href").replace("#", "");
-			var concept = $(this).text();
-			$(this).text(concept);
-			$(this).val(param);
-		});
-	});
+    function myMap() {
+        var mapProp = {
+            center : new google.maps.LatLng(51.508742,-0.120850),
+            zoom : 5
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    }
 
-	$(document).ready(function() {
-		$('#map').css('height', $(window).height());
-	});
-	
-	$(window).resize(function() {
-		$('#map').css('height', $(window).height());
-	});
-		
-	$("#locationSearchField").keypress(function() {
-		console.log("keyboard is pressed");
-		$.ajax({
-		    url: "/MiniHack_1/services/findPlace?input=" + $(this).val(),
-		    type: 'GET',
-		    
-		    success: function(response) {
-		    		console.log($.parseJSON(response));
-			}
-		});
-	});
+myMap();
 </script>
 
 
 
-
-
-
+</html>
 
