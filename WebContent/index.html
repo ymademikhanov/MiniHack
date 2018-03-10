@@ -1,46 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_TEVCna6Qfoe54Tv7qELwCjZ70GpYHfU"></script>
 
-<link rel="stylesheet" type="text/css" href="style.css">
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div class="w3-row">
+        <div class="w3-col m4 l3">
+            <div class="inputDiv">
+                <form action="/action_page.php">
+                    <div class = "search_parameter">
+                    <label for="fname"> <b> Searching area </b></label>
+                    <input type="text" id="fname" name="firstname" placeholder="Enter a searching area">
+                    </div>
 
-<h2>Two Equal Columns</h2>
+                    <div class = "search_parameter">
+                    <label for="country"> <b> Travel time </b></label>
+                    <div class="w3-row">
+                        <div class="w3-col m12 l12">
+                                <select id="country" name="Min price">
+                                    <option value="australia">No max</option>
+                                    <option value="canada">10 min</option>
+                                    <option value="usa">20 min</option>
+                                    <option value="usa">3   0 min</option>
+                                </select>
+                        </div>
+                    </div>
+                    </div>
 
-<div class="row">
-  <div class="column30" style="background-color:#aaa;">
-    <ul>
-    <li> Option 1</li>
-    <li> Option 2</li>
-    <li> Option 3</li>
-    <li> Option 4</li>
-    <li> Option 5</li>
-    </ul>
-  </div>
-  <div class="column70" style="background-color:#bbb;">
-    <div id="googleMap" style="width:100%;height:400px;"></div>
+                    <div class = "search_parameter">
+                    <label for="country"> <b> Price range (pounds) </b></label>
+                    <div class="w3-row">
+                        <div class="w3-col m6 l6">
+                                <select id="country" name="Min price">
+                                    <option value="australia">No min</option>
+                                    <option value="canada">400 PCM</option>
+                                    <option value="usa">500 PCM</option>
+                                </select>
+                        </div>
+                        <div class="w3-col m6 l6">
+                                <select class = "select-style" id="country" name="Min price">
+                                    <option value="australia">No max</option>
+                                    <option value="canada">400 PCM</option>
+                                    <option value="usa">500 PCM</option>
+                                </select>
+                        </div>
+                    </div>
+                    </div>
 
-  </div>
-</div>
+                    <div class = "search_parameter">
+                    <label for="country"> <b> No. of bedrooms </b></label>
+                    <div class="w3-row">
+                        <div class="w3-col m6 l6">
+                                <select id="country" name="Min price">
+                                    <option value="australia">No min</option>
+                                    <option value="canada">400 PCM</option>
+                                    <option value="usa">500 PCM</option>
+                                </select>
+                        </div>
+                        <div class="w3-col m6 l6">
+                                <select class = "select-style" id="country" name="Min price">
+                                    <option value="australia">No max</option>
+                                    <option value="canada">400 PCM</option>
+                                    <option value="usa">500 PCM</option>
+                                </select>
+                        </div>
+                    </div>
+                    </div>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+        </div>
+        <div class="w3-col m8 l9">
+            <div id="googleMap" style="width:100%;height:90vh;"></div>
+        </div>
+    </div>
 
 </body>
 
 <script>
-function myMap() {
-var mapProp= {
-    center:new google.maps.LatLng(51.508742,-0.120850),
-    zoom:5,
-};
-var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
+    function myMap() {
+        var mapProp = {
+            center : new google.maps.LatLng(51.508742,-0.120850),
+            zoom : 5
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    }
+
+myMap();
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_TEVCna6Qfoe54Tv7qELwCjZ70GpYHfU&callback=myMap"></script>
+
 
 </html>
 
