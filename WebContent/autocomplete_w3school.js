@@ -1,4 +1,6 @@
-function autocomplete(inp, arr) {
+
+function autocomplete(inp) {
+	const server_url = "/MiniHack_1/services/";
 	
   function suggestion_item(input, matched_part, other_part, place_id) {
 	b = document.createElement("DIV");
@@ -12,12 +14,11 @@ function autocomplete(inp, arr) {
 		input.value = unescape(object["description"]);
 		
 		$.ajax({
-	        url: "/MiniHack_1/services/geocode?place_id=" + object["place_id"],
+	        url: server_url + "geocode?place_id=" + object["place_id"],
 	        type: 'GET',
 	        success: function(response) {
 	        		var coord = JSON.parse(response);
-	        		map.setCenter(new google.maps.LatLng(coord["lat"], coord["lng"]));
-	        		marker.setPosition(new google.maps.LatLng(coord["lat"], coord["lng"]));
+	        		global_map.changeCenter(coord["lat"], coord["lng"]);
 	        }
 	      });
 		closeAllLists();
@@ -27,9 +28,8 @@ function autocomplete(inp, arr) {
 
   var currentFocus;
   inp.addEventListener("input", function(e) {
+	  closeAllLists();
       var a, b, i, val = this.value;
-      /*close any already open lists of autocompleted values*/
-      closeAllLists();
       if (!val) { 
         return false;
       }
@@ -39,12 +39,10 @@ function autocomplete(inp, arr) {
       a = document.createElement("DIV");
       a.setAttribute("id", this.id + "autocomplete-list");
       a.setAttribute("class", "autocomplete-items");
-      /*append the DIV element as a child of the autocomplete container:*/
       this.parentNode.appendChild(a);
-      /*for each item in the array...*/
 
       $.ajax({
-        url: "/MiniHack_1/services/findPlace?input=" + val,
+        url: server_url + "findPlace?input=" + val,
         type: 'GET',
         success: function(response) {
             let obj = $.parseJSON(response);
@@ -70,13 +68,11 @@ function autocomplete(inp, arr) {
       if (e.keyCode == 40) {
         /*If the arrow DOWN key is pressed, increase the currentFocus variable:*/
         currentFocus++;
-        /*and and make the current item more visible:*/
         addActive(x);
       } else if (e.keyCode == 38) { //up
         /*If the arrow UP key is pressed,
         decrease the currentFocus variable:*/
         currentFocus--;
-        /*and and make the current item more visible:*/
         addActive(x);
       } else if (e.keyCode == 13) {
         /*If the ENTER key is pressed, prevent the form from being submitted,*/
