@@ -10,7 +10,15 @@ function autocomplete(inp, arr) {
 	b.addEventListener("click", function(e) {
 		var object = JSON.parse(this.getElementsByTagName("input")[0].value);
 		input.value = unescape(object["description"]);
-		map.setCenter(new google.maps.LatLng(51.008742, 50.1));
+		
+		$.ajax({
+	        url: "/MiniHack_1/services/geocode?place_id=" + object["place_id"],
+	        type: 'GET',
+	        success: function(response) {
+	        		var coord = JSON.parse(response);
+	        		map.setCenter(new google.maps.LatLng(coord["lat"], coord["lon"]));
+	        }
+	      });
 		closeAllLists();
 	});
 	return b;
