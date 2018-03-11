@@ -1,6 +1,7 @@
 
 function autocomplete(inp) {
 	const server_url = "/MiniHack_1/services/";
+	var currentFocus;
 	
   function suggestion_item(input, matched_part, other_part, place_id) {
 	b = document.createElement("DIV");
@@ -26,7 +27,6 @@ function autocomplete(inp) {
 	return b;
   };
 
-  var currentFocus;
   inp.addEventListener("input", function(e) {
 	  closeAllLists();
       var a, b, i, val = this.value;
@@ -102,16 +102,15 @@ function autocomplete(inp) {
     }
   }
 
-  function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
+  function closeAllLists(element) {
     var x = document.getElementsByClassName("autocomplete-items");
     for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
+      if (element != x[i] && element != inp) {
       x[i].parentNode.removeChild(x[i]);
     }
   }
 }
+  
 /*execute a function when someone clicks in the document:*/
 document.addEventListener("click", function (e) {
     closeAllLists(e.target);
