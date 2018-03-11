@@ -13,6 +13,7 @@ public class MHApplication extends Application {
 	
 	public MHApplication() {
 		singletons.add(new MHFindPlaceService());
+		singletons.add(new MHGeocodeService());
 	}
 	
 	@Override

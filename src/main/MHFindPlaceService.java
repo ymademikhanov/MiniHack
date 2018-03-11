@@ -19,7 +19,6 @@ public class MHFindPlaceService {
 	public Response getList(@QueryParam("input") String input) {
 		this.autocompleter.autocomplete(input);
 		String result = new Gson().toJson(this.autocompleter.suggestions());
-		
 		System.out.println(result);
 		
 		return Response.ok(result).build();
