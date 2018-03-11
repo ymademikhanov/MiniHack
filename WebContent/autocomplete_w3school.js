@@ -1,11 +1,11 @@
 function autocomplete(inp, arr) {
-  function suggestion_item(inp, matched_part, other_part) {
+  function suggestion_item(inp, matched_part, other_part, place_id) {
     b = document.createElement("DIV");
     /*make the matching letters bold:*/
     b.innerHTML = "<strong>" + matched_part + "</strong>";
     b.innerHTML += other_part;
     /*insert a input field that will hold the current array item's value:*/
-    b.innerHTML += "<input type='hidden' value='" + escape(matched_part) + escape(other_part) + "'>";
+    b.innerHTML += "<input type='hidden' value='" +  { "description" : escape(matched_part) + escape(other_part), "place_id" : escape(place_id)}  + "'>";
     
     /*execute a function when someone clicks on the item value (DIV element):*/
     b.addEventListener("click", function(e) {
@@ -44,17 +44,16 @@ function autocomplete(inp, arr) {
         url: "/MiniHack_1/services/findPlace?input=" + val,
         type: 'GET',
         success: function(response) {
-        	console.log(val);
-        		console.log(response);
             let obj = $.parseJSON(response);
             for (let i = 0; i < obj.length; i++) {
-              x = obj[i];
-              /*check if the item starts with the same letters as the text field value:*/
-              if (x.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                /*create a DIV element for each matching element:*/
-                let matched_part = x.substr(0, val.length);
-                let other_part = x.substr(val.length);
-                a.appendChild(new suggestion_item(inp, matched_part, other_part));
+              
+              desc = unescape(obj[i]["description"]);
+              place_id = unescape(obj[i]["place_id"]);
+              
+              if (desc.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                let matched_part = desc.substr(0, val.length);
+                let other_part = desc.substr(val.length);
+                a.appendChild(new suggestion_item(inp, matched_part, other_part, place_id));
               }
             }
         }
