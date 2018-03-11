@@ -18,6 +18,7 @@ public class GoogleAutocomplete implements Autocomplete {
 
 	@Override
 	public void autocomplete(String input) {
+		suggestions.clear();
 		try {
 			URL requestUrl = new URL(url + key + "&input=" + URLEncoder.encode(input, "UTF-8"));
 			HttpURLConnection con = (HttpURLConnection) requestUrl.openConnection();

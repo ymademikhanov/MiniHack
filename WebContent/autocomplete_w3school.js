@@ -16,7 +16,8 @@ function autocomplete(inp, arr) {
 	        type: 'GET',
 	        success: function(response) {
 	        		var coord = JSON.parse(response);
-	        		map.setCenter(new google.maps.LatLng(coord["lat"], coord["lon"]));
+	        		map.setCenter(new google.maps.LatLng(coord["lat"], coord["lng"]));
+	        		marker.setPosition(new google.maps.LatLng(coord["lat"], coord["lng"]));
 	        }
 	      });
 		closeAllLists();

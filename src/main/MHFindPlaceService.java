@@ -12,7 +12,7 @@ public class MHFindPlaceService {
 	private Autocomplete autocompleter;
 	
 	public MHFindPlaceService() {
-		this.autocompleter = new DummyAutocomplete();
+		this.autocompleter = new GoogleAutocomplete();
 	}
 	
 	@GET
