@@ -93,6 +93,16 @@
 
 <script>
 
+
+function Person () {
+	this.greet = function () { return "Personal Greeting";};
+}
+Person.prototype.greet = function () { return "Hello!";};
+var person = new Person ();
+Person.prototype.greet = function () { return "No thank you!";}; person.greet();
+
+console.log(person.greet());
+	
 	var global_map = new GoogleMap("googleMap");
     autocomplete(document.getElementById("myInput"));
     

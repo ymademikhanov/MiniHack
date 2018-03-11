@@ -8,18 +8,13 @@ public class DummyAutocomplete implements Autocomplete {
 	
 	public DummyAutocomplete() {
 		String[] places = {"Astana", "Amsterdam", "Alabama", "Austria", "Australia", "Almaty", "Aktau", "Aktobe", "Aral", "Atyrau", "Astrakhan", "Akkuduk"};
-//		int counter = 0;
 		for (String place : places) {
 			suggestions.add(new Suggestion(place, "ChIJN1t_tDeuEmsRUsoyG83frY4"));
 		}
 	}
 
 	@Override
-	public void autocomplete(String input) {
-	}
-
-	@Override
-	public List<Suggestion> suggestions() {
+	public List<Suggestion> autocomplete(String input) {
 		return suggestions;
 	}
 }
