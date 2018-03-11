@@ -1,10 +1,10 @@
 package main;
 
-public class AutocompleteSuggestion {
+public class Suggestion {
 	private String description;
 	private String place_id;
 	
-	AutocompleteSuggestion(String description, String place_id) {
+	Suggestion(String description, String place_id) {
 		this.description = description;
 		this.place_id = place_id;
 	}

@@ -1,28 +1,22 @@
 function autocomplete(inp, arr) {
-  function suggestion_item(inp, matched_part, other_part, place_id) {
-    b = document.createElement("DIV");
-    /*make the matching letters bold:*/
-    b.innerHTML = "<strong>" + matched_part + "</strong>";
-    b.innerHTML += other_part;
-    /*insert a input field that will hold the current array item's value:*/
-    b.innerHTML += "<input type='hidden' value='" +  { "description" : escape(matched_part) + escape(other_part), "place_id" : escape(place_id)}  + "'>";
-    
-    /*execute a function when someone clicks on the item value (DIV element):*/
-    b.addEventListener("click", function(e) {
-    		console.log("cool", this.getElementsByTagName("input")[0].value, ' =) ');
-      /*insert the value for the autocomplete text field:*/
-      inp.value = unescape(this.getElementsByTagName("input")[0].value);
-      /*close the list of autocompleted values,
-      (or any other open lists of autocompleted values:*/
-      closeAllLists();
-    });
-    return b;
+	
+  function suggestion_item(input, matched_part, other_part, place_id) {
+	b = document.createElement("DIV");
+	b.innerHTML = "<strong>" + matched_part + "</strong>" + other_part;
+	
+	var data = {"description" : matched_part + other_part, "place_id" : place_id};
+	b.innerHTML += "<input type='hidden' value='" +  JSON.stringify(data) + "'>";
+	
+	b.addEventListener("click", function(e) {
+		var object = JSON.parse(this.getElementsByTagName("input")[0].value);
+		input.value = unescape(object["description"]);
+		map.setCenter(new google.maps.LatLng(51.008742, 50.1));
+		closeAllLists();
+	});
+	return b;
   };
 
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
   var currentFocus;
-  /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", function(e) {
       var a, b, i, val = this.value;
       /*close any already open lists of autocompleted values*/
