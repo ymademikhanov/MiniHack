@@ -12,7 +12,7 @@ public class MHApplication extends Application {
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
 	
 	public MHApplication() {
-		singletons.add(new MHService());
+		singletons.add(new MHFindPlaceService());
 	}
 	
 	@Override

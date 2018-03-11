@@ -8,10 +8,10 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 @Path("/findPlace")
-public class MHService {
+public class MHFindPlaceService {
 	private Autocomplete autocompleter;
 	
-	public MHService() {
+	public MHFindPlaceService() {
 		this.autocompleter = new DummyAutocomplete();
 	}
 	
