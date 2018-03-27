@@ -50,12 +50,9 @@ function autocomplete(inp) {
               
               desc = unescape(obj[i]["description"]);
               place_id = unescape(obj[i]["place_id"]);
-              
-              if (desc.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                 let matched_part = desc.substr(0, val.length);
                 let other_part = desc.substr(val.length);
                 a.appendChild(new suggestion_item(inp, matched_part, other_part, place_id));
-              }
             }
         }
       });
