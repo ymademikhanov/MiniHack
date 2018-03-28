@@ -11,17 +11,13 @@ import com.google.gson.Gson;
 public class MHFindPlaceService {
 	private Autocomplete autocompleter;
 	
-	public MHFindPlaceService() {
-		this.autocompleter = new DummyAutocomplete();
+	public MHFindPlaceService(Autocomplete autocompleter) {
+		this.autocompleter = autocompleter;
 	}
 	
 	@GET
 	public Response getList(@QueryParam("input") String input) {
-		this.autocompleter.autocomplete(input);
-		String result = new Gson().toJson(this.autocompleter.suggestions());
-		
-		System.out.println(result);
-		
+		String result = new Gson().toJson(this.autocompleter.autocomplete(input));
 		return Response.ok(result).build();
 	}
 }

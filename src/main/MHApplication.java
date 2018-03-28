@@ -12,7 +12,8 @@ public class MHApplication extends Application {
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
 	
 	public MHApplication() {
-		singletons.add(new MHFindPlaceService());
+		singletons.add(new MHFindPlaceService(new GoogleAutocomplete()));
+		singletons.add(new MHGeocodeService());
 	}
 	
 	@Override

@@ -1,4 +1,9 @@
-function autocomplete(inp, arr) {
+
+function autocomplete(inp) {
+	const server_url = "/MiniHack_1/services/";
+	var currentFocus;
+	
+	var lastInputMilliTime = -1;
 	
   function suggestion_item(input, matched_part, other_part, place_id) {
 	b = document.createElement("DIV");
@@ -10,48 +15,53 @@ function autocomplete(inp, arr) {
 	b.addEventListener("click", function(e) {
 		var object = JSON.parse(this.getElementsByTagName("input")[0].value);
 		input.value = unescape(object["description"]);
-		map.setCenter(new google.maps.LatLng(51.008742, 50.1));
+		
+		$.ajax({
+	        url: server_url + "geocode?place_id=" + object["place_id"],
+	        type: 'GET',
+	        success: function(response) {
+	        		var place = JSON.parse(response);
+	        		global_map.changeCenter(place["lat"], place["lng"]);
+	        		global_map.changeZoom(place["zoom"]);
+	        }
+	      });
 		closeAllLists();
 	});
 	return b;
   };
 
-  var currentFocus;
   inp.addEventListener("input", function(e) {
-      var a, b, i, val = this.value;
-      /*close any already open lists of autocompleted values*/
-      closeAllLists();
-      if (!val) { 
-        return false;
-      }
-
+	  closeAllLists();
+	  
+	  if (!this.value) {
+		  return false;
+	  }
+	  
+	  var a, b, i, val = this.value;
       currentFocus = -1;
       /*create a DIV element that will contain the items (values):*/
       a = document.createElement("DIV");
       a.setAttribute("id", this.id + "autocomplete-list");
       a.setAttribute("class", "autocomplete-items");
-      /*append the DIV element as a child of the autocomplete container:*/
       this.parentNode.appendChild(a);
-      /*for each item in the array...*/
 
-      $.ajax({
-        url: "/MiniHack_1/services/findPlace?input=" + val,
-        type: 'GET',
-        success: function(response) {
-            let obj = $.parseJSON(response);
-            for (let i = 0; i < obj.length; i++) {
-              
-              desc = unescape(obj[i]["description"]);
-              place_id = unescape(obj[i]["place_id"]);
-              
-              if (desc.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                let matched_part = desc.substr(0, val.length);
-                let other_part = desc.substr(val.length);
-                a.appendChild(new suggestion_item(inp, matched_part, other_part, place_id));
-              }
-            }
-        }
-      });
+      if (val.length > 3) {
+	      $.ajax({
+	        url: server_url + "findPlace?input=" + val,
+	        type: 'GET',
+	        success: function(response) {
+	            let obj = $.parseJSON(response);
+	            for (let i = 0; i < obj.length; i++) {
+	              
+	              desc = unescape(obj[i]["description"]);
+	              place_id = unescape(obj[i]["place_id"]);
+	                let matched_part = desc.substr(0, val.length);
+	                let other_part = desc.substr(val.length);
+	                a.appendChild(new suggestion_item(inp, matched_part, other_part, place_id));
+	            }
+	        }
+	      });
+      }
   });
 
   /*execute a function presses a key on the keyboard:*/
@@ -61,13 +71,11 @@ function autocomplete(inp, arr) {
       if (e.keyCode == 40) {
         /*If the arrow DOWN key is pressed, increase the currentFocus variable:*/
         currentFocus++;
-        /*and and make the current item more visible:*/
         addActive(x);
       } else if (e.keyCode == 38) { //up
         /*If the arrow UP key is pressed,
         decrease the currentFocus variable:*/
         currentFocus--;
-        /*and and make the current item more visible:*/
         addActive(x);
       } else if (e.keyCode == 13) {
         /*If the ENTER key is pressed, prevent the form from being submitted,*/
@@ -97,16 +105,15 @@ function autocomplete(inp, arr) {
     }
   }
 
-  function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
+  function closeAllLists(element) {
     var x = document.getElementsByClassName("autocomplete-items");
     for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
+      if (element != x[i] && element != inp) {
       x[i].parentNode.removeChild(x[i]);
     }
   }
 }
+  
 /*execute a function when someone clicks in the document:*/
 document.addEventListener("click", function (e) {
     closeAllLists(e.target);
