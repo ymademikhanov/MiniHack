@@ -1,4 +1,5 @@
 function GoogleMap(elementId) {
+	var markers = [];
 	// A helper converting function.
 	var convert = function(lat, lng) {
 		return new google.maps.LatLng(lat, lng);
@@ -16,6 +17,17 @@ function GoogleMap(elementId) {
 	this.changeZoom = function(zoom) {
 		map.setZoom(zoom);
 	};
+	
+	this.addMarker = function(marker) {
+		marker.setMap(map);
+		markers.push(marker);
+	}
+	
+	this.clearMarkers = function() {
+		for (let i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+		}
+	}
 	
 	this.changeCenter = function(lat, lng) {
 		center = convert(lat, lng);

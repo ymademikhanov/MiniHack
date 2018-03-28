@@ -14,6 +14,7 @@ public class MHApplication extends Application {
 	public MHApplication() {
 		singletons.add(new MHFindPlaceService(new GoogleAutocomplete()));
 		singletons.add(new MHGeocodeService());
+		singletons.add(new MHSearchProperties(new DummySearcher()));
 	}
 	
 	@Override

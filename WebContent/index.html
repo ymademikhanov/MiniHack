@@ -4,11 +4,14 @@
     <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<script src="google_map.js"></script>
-    <script src="autocomplete_w3school.js"></script>
+	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_TEVCna6Qfoe54Tv7qELwCjZ70GpYHfU"></script>
-
+	
+	<script src="google_map.js"></script>
+    <script src="autocomplete_w3school.js"></script>
+    <script src="propertySearcher.js"></script>
+    
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -46,17 +49,27 @@
                     <label for="country"> <b> Price range (pounds) </b></label>
                     <div class="w3-row">
                         <div class="w3-col m6 l6">
-                                <select id="country" name="Min price">
-                                    <option value="australia">No min</option>
-                                    <option value="canada">400 PCM</option>
-                                    <option value="usa">500 PCM</option>
+                                <select id="minpriceselect" name="Min price">
+                                    <option value="0">No min</option>
+                                    <option value="400">400 PCM</option>
+                                    <option value="500">500 PCM</option>
+                                    <option value="700">700 PCM</option>
+                                    <option value="900">900 PCM</option>
+                                    <option value="1100">1100 PCM</option>
+                                    <option value="1300">1300 PCM</option>
+                                    <option value="1500">1500 PCM</option>
                                 </select>
                         </div>
                         <div class="w3-col m6 l6">
-                                <select class = "select-style" id="country" name="Min price">
-                                    <option value="australia">No max</option>
-                                    <option value="canada">400 PCM</option>
-                                    <option value="usa">500 PCM</option>
+                                <select class = "select-style" id="maxpriceselect" name="Min price">
+                                    <option value="1000000">No max</option>
+                                    <option value="500">500 PCM</option>
+                                    <option value="700">700 PCM</option>
+                                    <option value="900">900 PCM</option>
+                                    <option value="1100">1100 PCM</option>
+                                    <option value="1300">1300 PCM</option>
+                                    <option value="1500">1500 PCM</option>
+                                    
                                 </select>
                         </div>
                     </div>
@@ -81,7 +94,7 @@
                         </div>
                     </div>
                     </div>
-                    <input type="submit" value="Search">
+                    <input id = "searchButton" type="submit" value="Search">
                 </form>
             </div>
         </div>
@@ -92,8 +105,10 @@
 </body>
 
 <script>
-	
+
 	var global_map = new GoogleMap("googleMap");
+	var property_searcher = new PropertySearcher(global_map, document.getElementById("searchButton"), document.getElementById("myInput"), document.getElementById("minpriceselect"), document.getElementById("maxpriceselect"));
+	
     autocomplete(document.getElementById("myInput"));
     
 </script>
