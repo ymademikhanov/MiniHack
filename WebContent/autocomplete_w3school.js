@@ -3,6 +3,8 @@ function autocomplete(inp) {
 	const server_url = "/MiniHack_1/services/";
 	var currentFocus;
 	
+	var lastInputMilliTime = -1;
+	
   function suggestion_item(input, matched_part, other_part, place_id) {
 	b = document.createElement("DIV");
 	b.innerHTML = "<strong>" + matched_part + "</strong>" + other_part;
@@ -18,8 +20,9 @@ function autocomplete(inp) {
 	        url: server_url + "geocode?place_id=" + object["place_id"],
 	        type: 'GET',
 	        success: function(response) {
-	        		var coord = JSON.parse(response);
-	        		global_map.changeCenter(coord["lat"], coord["lng"]);
+	        		var place = JSON.parse(response);
+	        		global_map.changeCenter(place["lat"], place["lng"]);
+	        		global_map.changeZoom(place["zoom"]);
 	        }
 	      });
 		closeAllLists();
@@ -29,11 +32,12 @@ function autocomplete(inp) {
 
   inp.addEventListener("input", function(e) {
 	  closeAllLists();
-      var a, b, i, val = this.value;
-      if (!val) { 
-        return false;
-      }
-
+	  
+	  if (!this.value) {
+		  return false;
+	  }
+	  
+	  var a, b, i, val = this.value;
       currentFocus = -1;
       /*create a DIV element that will contain the items (values):*/
       a = document.createElement("DIV");
@@ -41,21 +45,23 @@ function autocomplete(inp) {
       a.setAttribute("class", "autocomplete-items");
       this.parentNode.appendChild(a);
 
-      $.ajax({
-        url: server_url + "findPlace?input=" + val,
-        type: 'GET',
-        success: function(response) {
-            let obj = $.parseJSON(response);
-            for (let i = 0; i < obj.length; i++) {
-              
-              desc = unescape(obj[i]["description"]);
-              place_id = unescape(obj[i]["place_id"]);
-                let matched_part = desc.substr(0, val.length);
-                let other_part = desc.substr(val.length);
-                a.appendChild(new suggestion_item(inp, matched_part, other_part, place_id));
-            }
-        }
-      });
+      if (val.length > 3) {
+	      $.ajax({
+	        url: server_url + "findPlace?input=" + val,
+	        type: 'GET',
+	        success: function(response) {
+	            let obj = $.parseJSON(response);
+	            for (let i = 0; i < obj.length; i++) {
+	              
+	              desc = unescape(obj[i]["description"]);
+	              place_id = unescape(obj[i]["place_id"]);
+	                let matched_part = desc.substr(0, val.length);
+	                let other_part = desc.substr(val.length);
+	                a.appendChild(new suggestion_item(inp, matched_part, other_part, place_id));
+	            }
+	        }
+	      });
+      }
   });
 
   /*execute a function presses a key on the keyboard:*/
