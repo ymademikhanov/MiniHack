@@ -17,7 +17,10 @@ public class MHFindPlaceService {
 	
 	@GET
 	public Response getList(@QueryParam("input") String input) {
+		System.out.println("got query");
 		String result = new Gson().toJson(this.autocompleter.autocomplete(input));
+		
+		
 		return Response.ok(result).build();
 	}
 }

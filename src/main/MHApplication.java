@@ -26,5 +26,4 @@ public class MHApplication extends Application {
 	public Set<Object> getSingletons() {
 		return singletons;
 	}
-	
 }
